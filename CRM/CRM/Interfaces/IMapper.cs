@@ -1,6 +1,6 @@
 namespace Interfaces;
 
-public interface IMapper
+public interface IDataMapper<TSource, TDestination> 
 {
-    
+    TDestination Map(TSource source);
 }

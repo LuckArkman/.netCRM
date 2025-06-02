@@ -3,16 +3,13 @@ using Services;
 using Entities;
 using Data;
 using Repositories;
-using Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
-using Profiles;
+using Apis;
 using Hubs;
-using GabineteDigital.Api;
-using GabineteDigital.Application.Interfaces;
 using GabineteDigital.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore; // Necessário para ClaimTypes
 
@@ -83,11 +80,18 @@ builder.Services.AddAuthentication(options =>
 // Configurar CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy", builder => builder
-        .WithOrigins(builder.Configuration["CorsOrigins"].Split(',')) // Domínio(s) do frontend Laravel
+    // Obtém as origens CORS diretamente do IConfiguration global do builder
+    var corsOriginsConfig = builder.Configuration["CorsOrigins"];
+    var allowedOrigins = corsOriginsConfig?.Split(',')
+                             .Where(o => !string.IsNullOrWhiteSpace(o))
+                             .ToArray()
+                         ?? Array.Empty<string>();
+
+    options.AddPolicy("CorsPolicy", policyBuilder => policyBuilder
+        .WithOrigins(allowedOrigins) // Usa a variável local 'allowedOrigins'
         .AllowAnyMethod()
         .AllowAnyHeader()
-        .AllowCredentials()); // Necessário para SignalR e cookies se forem usados
+        .AllowCredentials());
 });
 
 // Adicionar AutoMapper

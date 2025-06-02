@@ -2,9 +2,7 @@ using Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Twilio.AspNet.Core;
 using Twilio.TwiML;
-using Twilio.TwiML.Voice;
-using System.Security.Claims; // Necessário para ClaimTypes
-using System.Threading.Tasks;
+// Necessário para ClaimTypes
 
 namespace Controllers
 {
@@ -73,7 +71,7 @@ namespace Controllers
             {
                 // Responde com mensagem de boas-vindas e coleta fala do usuário
                 response.Say("Bem-vindo ao Gabinete Digital. Por favor, diga em poucas palavras o motivo do seu contato.", language: "pt-BR");
-                response.Record(action: Url.Action("VoiceRecording", "TwilioWebhooks"), maxLength: 10, finishOnKey: "#"); // Grava até 10 segundos ou até #
+                response.Record(action: new Uri(Url.Action("VoiceRecording", "TwilioWebhooks")), maxLength: 10, finishOnKey: "#"); // Grava até 10 segundos ou até #
             }
 
             return TwiML(response);

@@ -1,4 +1,5 @@
 using _Enums;
+using AutoMapper;
 using DTOs;
 using Entities;
 using Interfaces;
@@ -38,7 +39,7 @@ public class AgendaService : IAgendaService
 
             var compromisso = _mapper.Map<Compromisso>(dto);
             compromisso.Id = Guid.NewGuid();
-            compromisso.CidadaoId = cidada?.Id;
+            compromisso.CidadaoId = cidadao?.Id;
             compromisso.ResponsavelId = dto.ResponsavelId ?? currentUserId; // Atribui ao criador se não especificado
             compromisso.Status = StatusCompromisso.Pendente;
 

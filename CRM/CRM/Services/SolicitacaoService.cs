@@ -1,4 +1,5 @@
 using _Enums;
+using AutoMapper;
 using DTOs;
 using Entities;
 using Interfaces;

@@ -38,9 +38,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[14.0.0, )"
+            },
             "Azure.AI.OpenAI": {
               "target": "Package",
               "version": "[2.1.0, )"
+            },
+            "Azure.Storage.Blobs": {
+              "target": "Package",
+              "version": "[12.24.0, )"
             },
             "ElevenLabs": {
               "target": "Package",
@@ -77,6 +85,10 @@
             "Twilio": {
               "target": "Package",
               "version": "[7.11.1, )"
+            },
+            "Twilio.AspNet.Core": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [

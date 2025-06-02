@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System;
 using Entities;
 
-namespace GabineteDigital.Api
+namespace Apis
 {
     public static class SeedData
     {

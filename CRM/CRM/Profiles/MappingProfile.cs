@@ -1,4 +1,5 @@
 using DTOs;
+using AutoMapper;
 using Entities;
 
 namespace CRM.Profiles;

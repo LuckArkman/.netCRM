@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using DTOs;
-using GabineteDigital.Application.Interfaces;
 using Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
