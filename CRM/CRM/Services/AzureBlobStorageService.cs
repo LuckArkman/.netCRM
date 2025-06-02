@@ -1,6 +1,5 @@
 using Azure.Storage.Blobs;
 using Interfaces;
-using Microsoft.Extensions.Configuration;
 
 namespace GabineteDigital.Infrastructure.Services
 {

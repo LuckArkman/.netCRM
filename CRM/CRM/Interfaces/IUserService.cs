@@ -2,7 +2,7 @@ using DTOs;
 using Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace GabineteDigital.Application.Interfaces
+namespace Interfaces
 {
     public interface IUserService
     {

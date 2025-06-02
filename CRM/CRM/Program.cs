@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
-using GabineteDigital.Application.Profiles;
-using GabineteDigital.Api.Hubs;
-using System.Security.Claims;
+using Profiles;
+using Hubs;
+using GabineteDigital.Api;
+using GabineteDigital.Application.Interfaces;
+using GabineteDigital.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore; // Necessário para ClaimTypes
 
 var builder = WebApplication.CreateBuilder(args);

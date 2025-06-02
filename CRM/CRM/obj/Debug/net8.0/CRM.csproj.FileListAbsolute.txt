@@ -1,0 +1,8 @@
+/home/mplopes/Documentos/GitHub/.netCRM/CRM/CRM/obj/Debug/net8.0/CRM.csproj.AssemblyReference.cache
+/home/mplopes/Documentos/GitHub/.netCRM/CRM/CRM/obj/Debug/net8.0/CRM.GeneratedMSBuildEditorConfig.editorconfig
+/home/mplopes/Documentos/GitHub/.netCRM/CRM/CRM/obj/Debug/net8.0/CRM.AssemblyInfoInputs.cache
+/home/mplopes/Documentos/GitHub/.netCRM/CRM/CRM/obj/Debug/net8.0/CRM.AssemblyInfo.cs
+/home/mplopes/Documentos/GitHub/.netCRM/CRM/CRM/obj/Debug/net8.0/CRM.csproj.CoreCompileInputs.cache
+/home/mplopes/Documentos/GitHub/.netCRM/CRM/CRM/obj/Debug/net8.0/CRM.MvcApplicationPartsAssemblyInfo.cs
+/home/mplopes/Documentos/GitHub/.netCRM/CRM/CRM/obj/Debug/net8.0/CRM.MvcApplicationPartsAssemblyInfo.cache
+/home/mplopes/Documentos/GitHub/.netCRM/CRM/CRM/obj/Debug/net8.0/CRM.sourcelink.json
