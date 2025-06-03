@@ -3,15 +3,16 @@ using Services;
 using Entities;
 using Data;
 using Repositories;
+using Filters; // Adicione este using
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
-using Apis;
 using Hubs;
 using GabineteDigital.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore; // Necessário para ClaimTypes
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models; // Necessário para ClaimTypes
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -123,30 +124,38 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Gabinete Digital API", Version = "v1" });
-    // Adicionar suporte a JWT no Swagger UI
-    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gabinete Digital API", Version = "v1" });
+    c.OperationFilter<FileUploadOperationFilter>();
+
+    // Suporte a JWT, se aplicável
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+        In = ParameterLocation.Header,
+        Description = "Por favor, insira o token JWT no formato: Bearer {token}",
         Name = "Authorization",
-        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
-    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
-            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            new OpenApiSecurityScheme
             {
-                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                Reference = new OpenApiReference
                 {
-                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Type = ReferenceType.SecurityScheme,
                     Id = "Bearer"
                 }
             },
             Array.Empty<string>()
         }
     });
+
+    // Opcional: incluir comentários XML, se houver
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+        c.IncludeXmlComments(xmlPath);
 });
 
 // Adicionar SignalR
@@ -184,10 +193,10 @@ using (var scope = app.Services.CreateScope())
     // For Dev, uncomment:
     try
     {
-        await dbContext.Database.MigrateAsync();
+        //await dbContext.Database.MigrateAsync();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<MembroEquipe>>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
-        await SeedData.Initialize(dbContext, userManager, roleManager);
+        //await SeedData.Initialize(dbContext, userManager, roleManager);
     }
     catch (Exception ex)
     {

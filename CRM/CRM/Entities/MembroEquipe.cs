@@ -7,7 +7,7 @@ namespace Entities
     {
         public string NomeCompleto { get; set; }
         public string Cargo { get; set; }
-        public DateTime DataCadastro { get; set; } = DateTime.UtcNow;
+        public string DataCadastro { get; set; } = DateTime.UtcNow.ToString();
         public bool Ativo { get; set; } = true;
 
         // Propriedades de navegação podem ser úteis para auditoria ou logs

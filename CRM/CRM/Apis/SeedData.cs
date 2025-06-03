@@ -15,17 +15,23 @@ namespace Apis
                                             UserManager<MembroEquipe> userManager,
                                             RoleManager<IdentityRole<Guid>> roleManager)
         {
-            await context.Database.MigrateAsync(); // Aplica migrações pendentes
+            //await context.Database.MigrateAsync(); // Aplica migrações pendentes
 
             // Criar Roles (perfis de usuário)
             string[] roleNames = { "Admin", "Secretario", "Assessor", "Atendente" };
+            /*
             foreach (var roleName in roleNames)
             {
+                // Adicione este Console.WriteLine para ver qual banco de dados o contexto está usando
+                Console.WriteLine($"Verificando role: {roleName} no DB: {context.Database.GetDbConnection().ConnectionString}");
+
                 if (!await roleManager.RoleExistsAsync(roleName))
                 {
                     await roleManager.CreateAsync(new IdentityRole<Guid>(roleName));
                 }
+                
             }
+            */
 
             // Criar usuário Admin padrão
             if (await userManager.FindByEmailAsync("admin@gabinete.com") == null)
@@ -73,33 +79,33 @@ namespace Apis
                 context.ProjetosVereador.AddRange(
                     new ProjetoVereador
                     {
-                        Id = Guid.NewGuid(),
+                        Id = Guid.NewGuid().ToString(),
                         Titulo = "Requalificação da Praça Central",
                         Descricao = "Projeto para revitalização e modernização da Praça Central, incluindo nova iluminação, paisagismo e áreas de lazer para a comunidade.",
                         StatusAtual = "Em discussão na Câmara",
                         Area = "Urbanismo",
-                        DataCriacao = DateTime.Now.AddMonths(-3),
-                        DataUltimaAtualizacao = DateTime.Now.AddDays(-15)
+                        DataCriacao = DateTime.UtcNow.ToString(),
+                        DataUltimaAtualizacao = DateTime.UtcNow.ToString()
                     },
                     new ProjetoVereador
                     {
-                        Id = Guid.NewGuid(),
+                        Id = Guid.NewGuid().ToString(),
                         Titulo = "Programa 'Escola Conectada'",
                         Descricao = "Iniciativa para levar internet de alta velocidade e equipamentos digitais a todas as escolas públicas municipais, visando a inclusão digital.",
                         StatusAtual = "Aguardando dotação orçamentária",
                         Area = "Educação",
-                        DataCriacao = DateTime.Now.AddMonths(-6),
-                        DataUltimaAtualizacao = DateTime.Now.AddDays(-30)
+                        DataCriacao = DateTime.UtcNow.ToString(),
+                        DataUltimaAtualizacao = DateTime.UtcNow.ToString()
                     },
                     new ProjetoVereador
                     {
-                        Id = Guid.NewGuid(),
+                        Id = Guid.NewGuid().ToString(),
                         Titulo = "Aumento da Frota de Transporte Público",
                         Descricao = "Proposta para aquisição de novos ônibus e ampliação de linhas para otimizar o transporte público na cidade, melhorando a mobilidade urbana.",
                         StatusAtual = "Em fase de audiências públicas",
                         Area = "Transporte Público",
-                        DataCriacao = DateTime.Now.AddMonths(-1),
-                        DataUltimaAtualizacao = DateTime.Now.AddDays(-5)
+                        DataCriacao = DateTime.UtcNow.ToString(),
+                        DataUltimaAtualizacao = DateTime.UtcNow.ToString()
                     }
                 );
                 await context.SaveChangesAsync();
